@@ -83,3 +83,14 @@ Para o sysadmin - você não precisa ficar preparando o server para a aplicaçã
 
 Para empresa - ela vai economizar recursos - não será necessário ficar comprando servidores que muitas vezes ficam sub utilizados
 
+
+## Aula 5
+
+Instalando o Docker
+
+Docker só roda em processadores de 64bits
+Só pode ser instalado em versões do Kernel acima da 3.8
+Seu kernel deve ter os módulos para suportar os storagesdriver - AUFS ou Device Mapper
+Seu Kernel deve estar habilitado o cgroup e o namespace
+
+curl -fsSL https://get.docker.com/ | sh
