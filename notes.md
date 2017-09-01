@@ -1,4 +1,4 @@
-# Descomplicando o Docker v1
+complicando o Docker v1
 
 ## Aula 1
 
@@ -38,11 +38,7 @@ A Microsoft vai rodar Docker nas próximas versões do Windows Server
 
 Camadas
 
-<<<<<<< HEAD
 O Docker utiliza dois storage drivers - um é o AUFS e o outro é o Device Mapper
-=======
-O Docker utiliza dois storage drivers - um é o AUFS e o outro é o Device Map
->>>>>>> 6fd6335c66cd8add6bf91994d9db854859e3ef17
 
 AUFS = Another Union File System
 Priemiro File System do Docker
@@ -52,7 +48,6 @@ Quando seu arquivo está na camada Read Only, ele carrega, faz uma cópia para a
 Copy-on-Write
 É como se você fosse fazer uma anotação em um livro e no momento que você vai iniciar essa anotação, viesse uma cópia do livro para você anotar ao invés do original, preservando assim o original - Dessa forma o arquivo que você altera é uma cópia e o original é preservado
 
-<<<<<<< HEAD
 O Device Mapper foi criado pela Red Hat
 
 
@@ -87,6 +82,4 @@ Se você é desenvolvedor - fica mais fácil para você criar sua aplicação, t
 Para o sysadmin - você não precisa ficar preparando o server para a aplicação em cada linguagem diferente - é possivel gerenciar melhor os recursos e a utilização dos componentes - disponibilidade se cair um container, 5 seg já tem outro em pé
 
 Para empresa - ela vai economizar recursos - não será necessário ficar comprando servidores que muitas vezes ficam sub utilizados
-=======
-O Device Map foi criado pela Red Hat
->>>>>>> 6fd6335c66cd8add6bf91994d9db854859e3ef17
+
