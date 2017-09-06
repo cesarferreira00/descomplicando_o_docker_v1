@@ -94,3 +94,51 @@ Seu kernel deve ter os módulos para suportar os storagesdriver - AUFS ou Device
 Seu Kernel deve estar habilitado o cgroup e o namespace
 
 curl -fsSL https://get.docker.com/ | sh
+
+
+## Aula 6
+
+Administrando Containers
+
+Comando Docker - é um CLI (Comand Line)
+docker run - utilizado para executar um continer
+
+Se a imagem não existir na sua máquina ele vai fazer o pull dessa imagem. Ele vai l;a no Docker Hub e faz o download dessa imagem de continer para a sua máquina e executa.
+
+docker images - o parâmetro images do docker é para mostrar todas as imagens que você já tenha na sua máquina.
+
+docker ps -a - se eu quero visualizar todos os containers da minha máquina. Todos os containers que foram executados eles permanecem na máquina, ocupando espaço.
+
+docker run -ti - o "t" é para que você tenha um terminal e o "i" para que você tenha uma interação com o seu container
+
+docker run -d - para que você faça com o que o seu container rode como se fosse um deamon, um processo em backgorund
+
+Exemplo: docker run -ti ubuntu /bin/bash
+docker run (executa o container)
+-ti (parâmetro para um terminal interativo)
+ubuntu (nome da imagem)
+/bin/bash (qual o comando que eu quero executar - nesse caso o shell)
+
+Se eu der ctrl+d eu mato o container porque eu sairei do shell e o principal processo desse container é o shell
+Mas se eu der ctrl+pq eu saio do container mas mantenho ele em execução
+
+docker attach - é o comando que eu uso para voltar ao container - eu preciso do Container ID para isso - eu consigo o container ID digitando docker ps
+
+docker create - crio o container, mas ele fica parado, não tenho nenhuma interação com ele - não foi colocado para executar
+
+docker stop - eu paro o container - preciso passar o Container ID como parâmetro
+
+docker start - eu "starto" novamente o container - passar o Container ID como parâmetro
+
+docker pause - eu pauso o meu container - passar o Container ID como parâmetro
+
+docker unpause - eu descongelo, retomo o container pausado - passar o Container ID como parâmetro
+
+docker stats - mostra o consumo do meu container - passar o Container ID como parâmetro
+
+docker top - mostra quais os processos estão rodando no meu container - passar o Container ID como parâmetro
+
+docker logs - mostra os logs do container - o container loga tudo o que está em primeiro plano - passar o Container ID como parâmetro
+
+docker rm - remove o container parado - passar o Container ID como parâmetro (passo o -f para forçar caso o container esteja em execução)
+
