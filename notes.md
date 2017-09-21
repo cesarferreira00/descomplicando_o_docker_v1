@@ -122,6 +122,10 @@ ubuntu (nome da imagem)
 Se eu der ctrl+d eu mato o container porque eu sairei do shell e o principal processo desse container é o shell
 Mas se eu der ctrl+pq eu saio do container mas mantenho ele em execução
 
+Se eu quiser der um nome para o container eu passo o parâmetro --name
+docker run -ti --name teste debian
+
+
 docker attach - é o comando que eu uso para voltar ao container - eu preciso do Container ID para isso - eu consigo o container ID digitando docker ps
 
 docker create - crio o container, mas ele fica parado, não tenho nenhuma interação com ele - não foi colocado para executar
@@ -142,3 +146,35 @@ docker logs - mostra os logs do container - o container loga tudo o que está em
 
 docker rm - remove o container parado - passar o Container ID como parâmetro (passo o -f para forçar caso o container esteja em execução)
 
+## Aula 07 - Limitando CPU e MEM dos containers e o Docker Update
+
+Quando você cria um contianer e não passa nada, nem a quantidade max de mem e cpu, ele pode comprometer outros container, por utilizar demais outros recursos. É necessário tomar cuidado com isso e setar um limite para utilização dos recursos pelos containers de seu host
+
+Como limitar a memória - (se eu der um 'free -m' no container, ele vai retornar a mesma quantidade de memória do host)
+
+Para eu inspecionar um container, eu uso o comando docker inspect passado o container id como parâmetro
+	docker inspect a7aba39dd4b6
+
+Para verificar a memória do container vou contar com o auxílio do grep
+	docker inspect a7aba39dd4b6 | grep -i mem
+
+Se eu quero passar um limite de utilização de memória para o container é o parâmetro -m ou --memory
+	docker run -ti --memory 512m --name novo_teste debian
+
+Se eu quero alterar um limite de utilização de memória já definido para um container eu uso o comando docker update com o parâmetro --memory o novo valor seguidos do docker id ou o nome do container
+	docker update --memory 256m novo_teste
+
+Não vamos definir a cpu com %
+Vamos pensar assim:
+Digamos que o container1 tenha como o valor de cpu 1024, o container2 como 512 e o container3 como 512
+Proporcionalmente o container1 terá como valor 50% de cpu, o container2 25% e o container3 25%
+Simples como voar
+
+Para limitar a utilização de cpu pelo container na criação usaremos o parâmetro --cpu-shares
+	docker run -ti --cpu-shares 1024 --name container1 debian
+
+Para inspecionar o container utilizaremos o docker inspect mas desta vez com o | grep -i cpu - já que queremos as informações de cpu do container
+	docker inspect container1 | grep -i cpu
+
+Para alterar o limite de cpu que já está definido para um container, utilizo novamente o comando docker update
+	docker update --cpu-shares 512 container1
