@@ -153,15 +153,19 @@ Quando você cria um contianer e não passa nada, nem a quantidade max de mem e 
 Como limitar a memória - (se eu der um 'free -m' no container, ele vai retornar a mesma quantidade de memória do host)
 
 Para eu inspecionar um container, eu uso o comando docker inspect passado o container id como parâmetro
+
 docker inspect a7aba39dd4b6
 
 Para verificar a memória do container vou contar com o auxílio do grep
+
 docker inspect a7aba39dd4b6 | grep -i mem
 
 Se eu quero passar um limite de utilização de memória para o container é o parâmetro -m ou --memory
+
 docker run -ti --memory 512m --name novo_teste debian
 
 Se eu quero alterar um limite de utilização de memória já definido para um container eu uso o comando docker update com o parâmetro --memory o novo valor seguidos do docker id ou o nome do container
+
 docker update --memory 256m novo_teste
 
 Não vamos definir a cpu com %
@@ -171,10 +175,13 @@ Proporcionalmente o container1 terá como valor 50% de cpu, o container2 25% e o
 Simples como voar
 
 Para limitar a utilização de cpu pelo container na criação usaremos o parâmetro --cpu-shares
+
 docker run -ti --cpu-shares 1024 --name container1 debian
 
 Para inspecionar o container utilizaremos o docker inspect mas desta vez com o | grep -i cpu - já que queremos as informações de cpu do container
+
 docker inspect container1 | grep -i cpu
 
 Para alterar o limite de cpu que já está definido para um container, utilizo novamente o comando docker update
+
 docker update --cpu-shares 512 container1
