@@ -185,3 +185,40 @@ Para inspecionar o container utilizaremos o docker inspect mas desta vez com o |
 Para alterar o limite de cpu que já está definido para um container, utilizo novamente o comando docker update
 
 	docker update --cpu-shares 512 container1
+
+
+## Aula 08 - Volumes e container date-only
+
+Quando você utiliza um volume em um container nada mais do que o compartilhamento de um diretório.
+Logo, quando você fizer um snapshot, o volume não vai junto, ele é apenas um ponto de montagem. Se eu matar um container, o volume persiste no host docker.
+
+Para visualizar onde está esse diretório desse volumer que você colcou no container, basta digitar:
+
+	docker inspect -f {{.Mounts}} <container if>
+
+Se eu quero passar um diretório específico, como faço? Olhe o exemplo a seguir:
+
+Posso criar um diretório como exemplo:
+
+	mkdir /root/primeiro_dockerfile/
+
+Depois vou subir um container mapeando esse diretório que acabei de criar:
+
+	docker run -ti -v /root/primeiro_dockerfiler:/volume debian
+
+Com isso feito o container subirá, e quando eu acessar o /volume no meu container o conteúdo desse diretório será o mesmo que o do diretório /root/primeiro_dockerfile/ do meu host docker 
+
+Container data only é um container que não precisa estar em execução e ele vai possuir volumes e esses volumes serão compartilhados com outros containers.
+
+Primeiro eu vou cirar um container e especificar esse volume:
+
+	docker create -v /data --name dbdados centos
+
+O parâmetro --volumes-from importa outro volume de um determinado container para o container que ele está criando. Vamos passar a linhas de ciração utilizando o --volumes-from para que ele importe do dbdados que acabamos de criar.
+
+	docker run -d -p 5432:5432 --name pgsql1 --volumes-from dbdados -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+	docker run -d -p 5433:5432 --name pgsql2 --volumes-from dbdados -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+
+Neste caso estamos o postgree como banco de dados para perceber melhor o exemplo.
+
+Se eu mudar para o diretório do dbdados eu vou ver agora os arquivos de configurações do postgree nesse diretório.
